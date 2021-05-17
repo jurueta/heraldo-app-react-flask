@@ -1,0 +1,18 @@
+footer{
+    margin-top: 20px;
+    top: 100%;
+    padding-top: 30px;
+    background-color: #D7D5D5;
+}
+
+@media (min-width: 350px){ 
+    footer{
+        left: 0px;
+    }
+}
+
+@media (min-width: 376px){ 
+    footer{
+        left: auto;
+    }
+}

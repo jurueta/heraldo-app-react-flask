@@ -1,0 +1,22 @@
+.regis {
+    margin: auto;
+    max-width: 660px;
+    height: 40vh;
+    min-height: 475px;
+    border: solid 1px darkgrey;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 580px){
+    .regis label {
+        text-align: right !important;
+    }
+}
+
+@media (max-width: 570px){
+    .regis {
+        height: 90vh;     
+        min-height: 700px;
+    }
+}

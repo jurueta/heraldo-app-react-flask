@@ -1,0 +1,14 @@
+.navbar{
+    border-bottom: 1px solid firebrick;
+    border-top: 1px solid lightgray;    
+}
+
+.nav-link, .navbar-brand{
+    font-size: 16px !important;
+}
+
+header #titulo{
+    font-family: 'Times New Roman', Times, serif !important;
+    color: firebrick;
+}
+

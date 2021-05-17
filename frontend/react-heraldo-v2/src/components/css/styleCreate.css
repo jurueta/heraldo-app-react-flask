@@ -1,0 +1,8 @@
+.center{
+    margin: auto;
+    margin-top: 10vh;
+    height: 40vh;
+    width: 90vw;
+    max-height: 500px;
+    max-width: 800px;
+}

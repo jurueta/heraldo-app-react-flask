@@ -1,0 +1,36 @@
+.log-container {
+    margin-top: 15vh;
+    margin-bottom: 20vh;
+}
+
+.log-container  h4 {
+    margin: 15px;
+}
+
+.login {
+    margin: auto;
+    max-width: 500px;
+    height: 35vh;
+    min-height: 330px;
+    border: solid 1px darkgrey;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+
+#myTab {
+    max-width: 500px;
+    margin: auto;    
+}
+
+@media (min-width: 580px){
+    .login label {
+        text-align: right !important;
+    }
+
+    .login {
+        height: 26vh;        
+        min-height: 260px;
+    }
+}
+
