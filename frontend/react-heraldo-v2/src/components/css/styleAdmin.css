@@ -1,0 +1,26 @@
+.center {
+    margin: auto;
+    margin-top: 5vh;
+    height: 40vh;
+    width: 90vw;
+    max-height: 500px;
+    max-width: 800px;
+}
+
+.news-table {
+    min-height: 650px;
+}
+
+.btn-create {
+    margin: 50px 5px 50px;
+}
+
+.form-create {
+    text-align: center;
+}
+
+@media (min-width: 580px) {
+    .form-create label {
+        text-align: right;
+    }
+}

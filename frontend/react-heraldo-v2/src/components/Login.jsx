@@ -21,12 +21,12 @@ const Login = () => {
 
             <div className="log-container">
                 {/* Tabs*/}
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="log-tab" data-toggle="tab" href="#log" role="tab" aria-controls="log" aria-selected="true">Login</a>
+                <ul className="nav nav-tabs" id="myTab" role="tablist">
+                    <li className="nav-item">
+                        <a className="nav-link active" id="log-tab" data-toggle="tab" href="#log" role="tab" aria-controls="log" aria-selected="true">Login</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="regis-tab" data-toggle="tab" href="#reg" role="tab" aria-controls="reg" aria-selected="false">Registrarse</a>
+                    <li className="nav-item">
+                        <a className="nav-link" id="regis-tab" data-toggle="tab" href="#reg" role="tab" aria-controls="reg" aria-selected="false">Registrarse</a>
                     </li>
                 </ul>
 
@@ -41,7 +41,7 @@ const Login = () => {
                             <form onSubmit={loginSubmit} className="text-center" >
 
                                 <div className="form-group row">
-                                    <label for="user" className="col-sm-3 col-form-label">Usuario:</label>
+                                    <label htmlFor="user" className="col-sm-3 col-form-label">Usuario:</label>
                                     <div className="col-sm-8">
 
                                         { /* input de usuario, se identifica como user*/}
@@ -53,7 +53,7 @@ const Login = () => {
                                 </div>
 
                                 <div className="form-group row">
-                                    <label for="pass" className="col-sm-3 col-form-label">Contraseña:</label>
+                                    <label htmlFor="pass" className="col-sm-3 col-form-label">Contraseña:</label>
                                     <div className="col-sm-8">
 
                                         { /* input de password, se identifica como pass*/}
@@ -71,7 +71,7 @@ const Login = () => {
                     </div>
 
                     {/* Tab del registrarse*/}
-                    <div class="tab-pane fade" id="reg" role="tabpanel" aria-labelledby="regis-tab">
+                    <div className="tab-pane fade" id="reg" role="tabpanel" aria-labelledby="regis-tab">
 
                         {/* Form para registrarse*/}
                         <Register />

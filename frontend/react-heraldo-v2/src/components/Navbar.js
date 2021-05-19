@@ -10,8 +10,8 @@ function Navbar() {
             </button>
             <div className="collapse navbar-collapse " id="navbarNavDropdown">
                 <ul className="nav navbar-nav ml-auto">
-                    <li className="nav-item active"><a class="nav-link" href="/login"> Ingresar </a></li>
-                    <li className="nav-item active"><a class="nav-link" href="/registrarse"> Registrarse </a></li>
+                    <li className="nav-item active"><a className="nav-link" href="/login"> Ingresar </a></li>
+                    <li className="nav-item active"><a className="nav-link" href="/registrarse"> Registrarse </a></li>
                 </ul>
             </div>
         </nav>

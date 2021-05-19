@@ -3,10 +3,9 @@ import { IconContext } from 'react-icons'
 import { FaPenNib, FaTrashAlt, FaPlusCircle } from "react-icons/fa";
 import Modal from 'react-modal';
 import CreateNews from './CreateNews.jsx'
-import './css/styleCreate.css'
+import './css/styleAdmin.css'
 
 Modal.setAppElement('#root')
-
 
 const AdminNews = () => {
     const [open, setOpen] = useState(false)
@@ -16,7 +15,7 @@ const AdminNews = () => {
         <IconContext.Provider value={{ style: { margin: '2px 3px 5px' }, size: "1.2em" }}>
             <button type="button"
                 onClick={() => { setOpen(true) }}
-                className="btn btn-outline-success float-left m-5"><FaPlusCircle />Crear noticia</button>
+                className="btn btn-outline-success float-left btn-create"><FaPlusCircle />Crear noticia</button>
 
             {/* Modal create*/}
             <Modal className="center"
@@ -36,7 +35,7 @@ const AdminNews = () => {
             </Modal>
 
 
-            <div className="table-responsive log-container">
+            <div className="table-responsive news-table">
                 <table className="table">
                     <thead>
                         <tr className="bg-primary text-center">
