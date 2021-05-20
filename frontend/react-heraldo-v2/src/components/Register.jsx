@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import './css/styleRegister.css'
+import axios from 'axios'
 
 // Dirección de la API
 const API = process.env.REACT_APP_API
 
 const Register = () => {
 
+    // valores de los inputs del formulario registrar
     const [allName, setAllName] = useState('')
     const [dir, setDir] = useState('')
     const [phone, setPhone] = useState('')
@@ -13,10 +15,35 @@ const Register = () => {
     const [regPass, setRegPass] = useState('')
     const [mail, setMail] = useState('')
 
+    // función que limpia los inputs después de que se envía la petición
+    const clearInputs = () => {
+        setAllName('')
+        setDir('')
+        setPhone('')
+        setRegUser('')
+        setRegPass('')
+        setMail('')
+    }
+
     // Función que envía la petición para registrarse a la API
-    const registerSubmit = (e) => {
+    const registerSubmit = async (e) => {
         e.preventDefault()
-        // aquí va el fetch
+
+        // axios que envia el formulario registro
+        await axios.post(`${API}/user`, {
+            nombre: allName,
+            direccion: dir,
+            telefono: parseInt(phone),
+            email: mail,
+            username: regUser,
+            password: regPass
+        }).then(response => {
+            if (response.status === 200) { // Si se efectua la petición
+                console.log(response)
+                clearInputs()
+            }
+        })
+
     }
 
     return (

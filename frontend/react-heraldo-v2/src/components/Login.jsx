@@ -1,19 +1,37 @@
 import React, { Fragment, useState } from 'react';
 import './css/styleLogin.css'
 import Register from './Register.jsx'
+import axios from 'axios'
 
 // Dirección de la API
-const API =  process.env.REACT_APP_API
+const API = process.env.REACT_APP_API
 
 const Login = () => {
 
+    // valores de los inputs del formulario login
     const [user, setUser] = useState('')
     const [password, setPassword] = useState('')
-    
+
+    // Limpiar inputs del form login
+    const clearInputs = () => {
+        setUser('')
+        setPassword('')
+    }
+
     // Función que envía la petición para ingresar a la API
-    const loginSubmit = (e) => {
+    const loginSubmit = async (e) => {
         e.preventDefault()
-        // aquí va el método fetch
+        // valores de los inputs del formulario login
+        await axios.post(`${API}/auth`, {
+            username: user,
+            password: password
+        }).then(response => {
+            if (response.status === 200) {
+                console.log(response.data.access_token)
+                localStorage.setItem('USER_SESSION', response.data.access_token) // Se crea la sección
+                clearInputs()                
+            }
+        })
     }
 
     return (
