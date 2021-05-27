@@ -11,11 +11,13 @@ const Login = () => {
     // valores de los inputs del formulario login
     const [user, setUser] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState(false)
 
     // Limpiar inputs del form login
     const clearInputs = () => {
         setUser('')
         setPassword('')
+        setError(false)
     }
 
     // Función que envía la petición para ingresar a la API
@@ -29,9 +31,10 @@ const Login = () => {
             if (response.status === 200) {
                 console.log(response.data.access_token)
                 localStorage.setItem('USER_SESSION', response.data.access_token) // Se crea la sección
-                clearInputs()                
+                clearInputs()
+                window.location.href = '/'
             }
-        })
+        }).catch(err => setError(true))
     }
 
     return (
@@ -50,6 +53,7 @@ const Login = () => {
 
                 <div className="tab-content" id="myTanContent">
 
+
                     {/* Tab del Login*/}
                     <div className="tab-pane fade show active" id="log" role="tabpanel" aria-labelledby="log-tab">
                         <div className="login text-center">
@@ -64,7 +68,8 @@ const Login = () => {
 
                                         { /* input de usuario, se identifica como user*/}
                                         <input type="text"
-                                            onChange={e => setUser(e.target.value)} value={user}
+                                            onChange={e => { if (e.target.value.length <= 50) setUser(e.target.value) }}
+                                            value={user}
                                             className="form-control" name="user"
                                             autoFocus required></input>
                                     </div>
@@ -76,15 +81,21 @@ const Login = () => {
 
                                         { /* input de password, se identifica como pass*/}
                                         <input type="password"
-                                            onChange={e => setPassword(e.target.value)} value={password}
+                                            onChange={e => { if (e.target.value.length <= 50) setPassword(e.target.value) }}
+                                            value={password}
                                             className="form-control" name="pass"
                                             required></input>
                                     </div>
                                 </div>
 
+                                {error &&
+                                    <div class="card alert-danger m-0">Usuario o contraseña invalido</div>
+                                }
+
                                 <button type="submit" className="btn btn-primary mt-3">Ingresar</button>
 
                             </form>
+
                         </div>
                     </div>
 

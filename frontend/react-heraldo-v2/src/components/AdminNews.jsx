@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IconContext } from 'react-icons'
-import { FaPenNib, FaTrashAlt, FaPlusCircle } from "react-icons/fa";
+import { FaPenNib, FaTrashAlt, FaPlusCircle, FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import Modal from 'react-modal';
 import axios from 'axios'
 import CreateNews from './CreateNews.jsx'
@@ -47,9 +47,9 @@ const AdminNews = () => {
     // callBack de noticas creadas
     const insertValue = (noticia) => {
         if (edit.status) {
-           // let listEdit = newsList.filter(item => item.id !== noticia.id)
-            console.log(noticia)
-            //setNewsList(listEdit)
+            // actualiza la noticia editada
+            let indexEdit = newsList.map(item => { return item.id }).indexOf(noticia.id)
+            newsList[indexEdit] = noticia
         } else {
             newsList.push(noticia)
         }
@@ -75,6 +75,34 @@ const AdminNews = () => {
                 }
             })
         }
+    }
+
+
+    // Edita la visibilización de la notica 
+    const visibleNoticie = (id, visible) => {
+        let parametros = {
+            visible: "0"
+        }
+        if (visible === 0) {
+            parametros.visible = "1"
+        }
+
+        axios.put(`${API}/notice/${id}`,
+            parametros
+            , {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem('USER_SESSION')}`,
+                    'Content-Type': 'application/json; charset=utf-8'
+                }
+            }
+
+        ).then(response => {
+            if (response.status === 200) {
+                let indexEdit = newsList.map(item => { return item.id }).indexOf(id)
+                newsList[indexEdit].visible = parametros.visible
+            }
+        })
+
     }
 
 
@@ -107,27 +135,38 @@ const AdminNews = () => {
                 <table className="table">
                     <thead>
                         <tr className="bg-primary text-center">
-                            <th scope="col">Título</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col" className="col-md-4">Resumen</th>
-                            <th scope="col" className="col-md-3">Acciones</th>
+                            <th scope="col" className="col-md-1">Título</th>
+                            <th scope="col" className="col-md-4">Descripción</th>
+                            <th scope="col" className="col-md-5">Resumen</th>
+                            <th scope="col" className="col-md-1">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {newsList.map(notice => {
                             return (
                                 <tr key={notice.id}>
-                                    <td>{notice.titulo}</td>
-                                    <td>{notice.descripcion}</td>
-                                    <td><textarea className="form-control" rows="4" cols="300" readOnly value={notice.resena}></textarea></td>
-                                    <td className="text-center align-middle">
-                                        <button className="btn btn-primary mr-2" name="edit"
-                                            onClick={() => {
-                                                setEdit({ id: notice.id, status: true });
-                                                setOpen(true)
-                                            }}><FaPenNib /> Editar</button>
-                                        <button className="btn btn-danger" name="delete"
-                                            onClick={() => deleteNotice(notice.id)}><FaTrashAlt /> Eliminar</button>
+                                    <td> <textarea className="form-control title p-1" rows="4" readOnly value={notice.titulo}></textarea></td>
+                                    <td> <textarea className="form-control p-1" rows="4" readOnly value={notice.descripcion}></textarea> </td>
+                                    <td><textarea className="form-control p-1" rows="4" readOnly value={notice.resena}></textarea></td>
+                                    <td className="align-middle">
+                                        <div className="row">
+
+                                            <button className="btn btn-primary p-0 pr-1 mb-1" name="edit"
+                                                onClick={() => {
+                                                    setEdit({ id: notice.id, status: true });
+                                                    setOpen(true)
+                                                }}><FaPenNib /> Editar</button>
+                                            <button className="btn btn-danger p-0 pr-1 mb-1" name="delete"
+                                                onClick={() => deleteNotice(notice.id)}><FaTrashAlt /> Eliminar</button>
+                                            {notice.visible ?
+                                                <button className="btn btn-dark p-0 pr-1" name="visible"
+                                                    onClick={() => visibleNoticie(notice.id, notice.visible)}><FaRegEyeSlash /> Invisibilizar</button>
+                                                :
+                                                <button className="btn btn-dark p-0 pr-1" name="visible"
+                                                    onClick={() => visibleNoticie(notice.id, notice.visible)}><FaRegEye /> Visibilizar</button>
+                                            }
+                                        </div>
+
                                     </td>
                                 </tr>)
                         })}

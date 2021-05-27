@@ -71,21 +71,6 @@ class CreateNews extends Component {
         this.setState({ category: e.target.value })
     }
 
-    // Limpia los inputs del formulario crear noticias
-    clearInputs = () => {
-        this.setState(
-            {
-                title: '',
-                description: '',
-                category: '',
-                journalist: '',
-                image: '',
-                abstract: ''
-            }
-        )
-        document.getElementById("categories").value = 0
-
-    }
 
     //Exportaciónde la notica en la base de datos
     createNewsSubmit = async () => {
@@ -99,20 +84,21 @@ class CreateNews extends Component {
                 imagen: this.state.image,
                 autor: this.state.journalist
             }
-            await axios.post(`${API}/notice`, {
+            await axios.post(`${API}/notice`,
                 parametros
-            }, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem('USER_SESSION')}`,
-                    'Content-Type': 'application/json; charset=utf-8'
+                , {
+                    headers: {
+                        Authorization: `JWT ${localStorage.getItem('USER_SESSION')}`,
+                        'Content-Type': 'application/json; charset=utf-8'
+                    }
                 }
-            }
             ).then(response => {
                 if (response.status === 200) {// Si se efectua la petición
                     const { noticeCallBack } = this.props
                     noticeCallBack(response.data[0])
                     console.log(response.data[0])
-                    this.clearInputs()
+                    alert("¡Se creó la noticia con éxito!")
+                    this.props.closeModal()
                 }
             })
         }
@@ -136,24 +122,27 @@ class CreateNews extends Component {
         console.log(parametros)
         // Petición para la edición de la noticia seleccionada
         if (this.state.category !== '') {
-            await axios.put(`${API}/notice/${this.props.edit.id}`, {
+            await axios.put(`${API}/notice/${this.props.edit.id}`,
                 parametros
-            }, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem('USER_SESSION')}`,
-                    'Content-Type': 'application/json; charset=utf-8'
+                , {
+                    headers: {
+                        Authorization: `JWT ${localStorage.getItem('USER_SESSION')}`,
+                        'Content-Type': 'application/json; charset=utf-8'
+                    }
                 }
-            }
             ).then(response => {
                 if (response.status === 200) {// Si se efectua la petición
                     const { noticeCallBack } = this.props
                     noticeCallBack(response.data[0])
-                    console.log(response.data[0])
+                    console.log(response.data[0])                    
+                    alert("¡Se editó la noticia con éxito!")
+                    this.props.closeModal()
                 }
             })
         }
     }
 
+    //Crea o edita la noticia
     createOrEdit = async (e) => {
         e.preventDefault()
         if (this.props.edit.status) {
@@ -276,7 +265,7 @@ class CreateNews extends Component {
                                         this.props.edit.status ? //Si está en edición entonces imprime una imagen
                                             <div className="rows">
                                                 {!this.state.editImage &&
-                                                    <img className="rounded img-fluid" src={this.state.image}></img>
+                                                    <img className="rounded img-fluid" id="img-notice" src={this.state.image} alt="img-heraldo"></img>
                                                 }
                                                 <input type="file"
                                                     onChange={e => this.encaodeImageFileAsURL(e.target.value)}
