@@ -22,7 +22,7 @@ class UserRest(Resource):
         users = self.session.execute(select(User).where(User.status == 1)).all()
         data = self._format_data_user(users)
         return data, 200
-    
+
     def post(self):
         parser = reqparse.RequestParser()
 

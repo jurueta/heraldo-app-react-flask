@@ -18,7 +18,7 @@ class CategoryRest(Resource):
     
     def get(self, id_category=None):
         categories = self.session.execute(select(Category).where(Category.status == 1)).all()
-        data = self._format_data_user(categories)
+        data = self._format_data_category(categories)
         return data, 200
 
     def _format_data_category(self, cotegories):

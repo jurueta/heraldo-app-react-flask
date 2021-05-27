@@ -6,6 +6,7 @@ from flask import current_app
 from config import USERDB, PASSDB, HOSTDB, DBNAME
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
+from datetime import datetime
 
 def connect_db():
     try:
@@ -37,7 +38,9 @@ def base64_to_file(args):
     image_stream = io.BytesIO(base64.b64decode(args["imagen"]))
     image = Image.open(image_stream)
     file_format = image.format
-    name_image = "asdasdasdasds"
+    now = datetime.now()
+    dt_string = now.strftime("%S.%f")
+    name_image = f"imageNotice-{dt_string}"
     file_image = f"{name_image}.{file_format.lower()}"
     if file_format in ("JPEG", "PNG"):
         image.save(f"{current_app.config['IMAGE_FOLDER']}{file_image}", file_format)
@@ -45,9 +48,8 @@ def base64_to_file(args):
     else:
         raise Exception('This file is not image')
 
-def format_url_image(data, url):
-    for i in data:
-        i['image'] = f"{url[0:-1]}{i['image']}" if i['image'] else None
-    return data
+def format_url_image(imagen, url):
+    imagen = f"{url}img/{imagen}" if imagen else None
+    return imagen
         
 

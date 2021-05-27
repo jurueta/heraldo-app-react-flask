@@ -1,5 +1,0 @@
-Flask=1.1.2
-Flask-JWT=0.3.2
-SQLAlchemy=1.4.15
-mysqlclient=1.4.6
-Flask-RESTful=0.3.8
