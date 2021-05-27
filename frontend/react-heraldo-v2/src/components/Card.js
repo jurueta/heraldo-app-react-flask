@@ -31,9 +31,9 @@ const cardImg = (title, info, img) => {
     }
 }
 
-function Card({ title, info, img }) {
+function Card({ title, info, img, id }) {
     return (
-        <a href="#">
+        <a href={`notice/${id}`}>
             <div className="card text-center">
                 <div className="card-body">
                     <div className="row">

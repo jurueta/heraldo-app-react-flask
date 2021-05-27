@@ -25,6 +25,20 @@ const Register = () => {
         setMail('')
     }
 
+    //Valida el teléfono
+    const validarPhone = (value) => {
+        if (value.length <= 10) {
+            setPhone(value.match(/[0-9]*/))
+        }
+    }
+
+    //Validar nombre
+    const validarNombre = (value) => {
+        if (value.length <= 50) {
+            setAllName(value.match(/[a-zA-Zá-ü-Á-Ü]*/))
+        }
+    }
+
     // Función que envía la petición para registrarse a la API
     const registerSubmit = async (e) => {
         e.preventDefault()
@@ -39,8 +53,8 @@ const Register = () => {
             password: regPass
         }).then(response => {
             if (response.status === 200) { // Si se efectua la petición
-                console.log(response)
                 clearInputs()
+                window.location.href = '/login'
             }
         })
 
@@ -59,7 +73,7 @@ const Register = () => {
 
                         { /* input de nombre completo, se identifica como all-name*/}
                         <input type="text"
-                            onChange={e => setAllName(e.target.value)} value={allName}
+                            onChange={e => validarNombre(e.target.value)} value={allName}
                             className="form-control" name="all-name"
                             required></input>
 
@@ -72,7 +86,8 @@ const Register = () => {
 
                         { /* input de dirección, se identifica como direction*/}
                         <input type="text"
-                            onChange={e => setDir(e.target.value)} value={dir}
+                            onChange={e => { if (e.target.value.length <= 50) setDir(e.target.value) }}
+                            value={dir}
                             className="form-control" name="direction"
                             required></input>
 
@@ -85,7 +100,7 @@ const Register = () => {
 
                         { /* input de teléfono, se identifica como phone*/}
                         <input type="text"
-                            onChange={e => setPhone(e.target.value)} value={phone}
+                            onChange={e => validarPhone(e.target.value)} value={phone}
                             className="form-control" name="phone"
                             required></input>
 
@@ -98,7 +113,8 @@ const Register = () => {
 
                         { /* input de usuario, se identifica como user*/}
                         <input type="text"
-                            onChange={e => setRegUser(e.target.value)} value={regUser}
+                            onChange={e => { if (e.target.value.length <= 50) setRegUser(e.target.value) }}
+                            value={regUser}
                             className="form-control" name="user"
                             required></input>
 
@@ -111,7 +127,8 @@ const Register = () => {
 
                         { /* input de password, se identifica como pass*/}
                         <input type="password"
-                            onChange={e => setRegPass(e.target.value)} value={regPass}
+                            onChange={e => { if (e.target.value.length <= 50) setRegPass(e.target.value) }}
+                            value={regPass}
                             className="form-control" name="pass"
                             required></input>
 
@@ -124,7 +141,8 @@ const Register = () => {
 
                         { /* input de correo electrónico, se identifica como mail*/}
                         <input type="email"
-                            onChange={e => setMail(e.target.value)} value={mail}
+                            onChange={e => { if (e.target.value.length <= 50) setMail(e.target.value) }}
+                            value={mail}
                             className="form-control" name="mail"
                             required></input>
 

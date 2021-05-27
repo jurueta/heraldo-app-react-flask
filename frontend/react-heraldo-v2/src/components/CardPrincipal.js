@@ -1,9 +1,9 @@
 import React from 'react';
 import './css/styleCard.css'
 
-function CardPrincipal({ title, info, img }) {
+function CardPrincipal({ title, info, img, id }) {
     return (
-        <a href="#">
+        <a href={`notice/${id}`}>
             <div className="card text-center">
                 <div className="card-body">
                     <div className="col-12 p-0">

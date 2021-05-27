@@ -1,20 +1,24 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import  './components/css/styleLogin.css'
+import './components/css/styleLogin.css'
 import Header from './components/Header.js';
 import SectionNews from './components/SectionNews.jsx'
 import Footer from './components/Footer.js';
 import Login from './components/Login.jsx'
 import Register from './components/Register.jsx'
 import AdminNews from './components/AdminNews.jsx'
-
+import ShowNotice from './components/ShowNotice.jsx'
 
 function App() {
+
   return (
 
     <Router>
       <div className="container">
         <Header />
         <Switch>
+          <Route path="/notice/:id">
+            <ShowNotice />
+          </Route>
           <Route path="/login" component={Login} />
           <Route path="/registrarse">
             <div className="log-container">
