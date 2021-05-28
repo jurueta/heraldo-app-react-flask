@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { Component } from 'react'
 import { FaTimes } from 'react-icons/fa'
+import Swal from 'sweetalert2'
 
 // Dirección de la API
 const API = process.env.REACT_APP_API
@@ -32,13 +33,11 @@ class CreateNews extends Component {
         axios.get(`${API}/category`
         ).then(response => {
             if (response.status === 200) {// Si se efectua la petición
-                console.log(response.data)
                 this.setState({ categories: response.data })
             }
         })
 
         if (this.props.edit.status) {
-            console.log(this.props.edit.id)
             axios.get(`${API}/notice/${this.props.edit.id}`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('USER_SESSION')}`,
@@ -67,7 +66,6 @@ class CreateNews extends Component {
 
     // Guarda la opción seleccionada en la lista de categorías
     categorySelected = (e) => {
-        console.log(e.target.value)
         this.setState({ category: e.target.value })
     }
 
@@ -96,8 +94,12 @@ class CreateNews extends Component {
                 if (response.status === 200) {// Si se efectua la petición
                     const { noticeCallBack } = this.props
                     noticeCallBack(response.data[0])
-                    console.log(response.data[0])
-                    alert("¡Se creó la noticia con éxito!")
+                    Swal.fire({
+                        title: 'Exito',
+                        text: '¡Se creó la noticia con éxito!',
+                        icon: 'success',
+                        showCancelButton: false,
+                      })
                     this.props.closeModal()
                 }
             })
@@ -119,7 +121,6 @@ class CreateNews extends Component {
         if (!this.state.editImage) { // Si no se cambia la imagen, entonces no se envía
             delete parametros.imagen
         }
-        console.log(parametros)
         // Petición para la edición de la noticia seleccionada
         if (this.state.category !== '') {
             await axios.put(`${API}/notice/${this.props.edit.id}`,
@@ -134,8 +135,13 @@ class CreateNews extends Component {
                 if (response.status === 200) {// Si se efectua la petición
                     const { noticeCallBack } = this.props
                     noticeCallBack(response.data[0])
-                    console.log(response.data[0])                    
-                    alert("¡Se editó la noticia con éxito!")
+                    /* alert("¡Se editó la noticia con éxito!") */
+                    Swal.fire({
+                        title: 'Exito',
+                        text: '¡Se editó la noticia con éxito!',
+                        icon: 'success',
+                        showCancelButton: false,
+                      })
                     this.props.closeModal()
                 }
             })
@@ -146,10 +152,8 @@ class CreateNews extends Component {
     createOrEdit = async (e) => {
         e.preventDefault()
         if (this.props.edit.status) {
-            console.log("editar")
             this.editNewsSubmit()
         } else {
-            console.log("crear")
             this.createNewsSubmit()
         }
     }
@@ -167,7 +171,6 @@ class CreateNews extends Component {
                 let srcData = fileLoadedEvent.target.result
                 base64 = srcData.split(",")[1] //base64
                 this.setState({ image: base64 })
-                console.log(this.state.image)
                 if (this.props.edit.status) {
                     this.setState({ editImage: true })
                 }
@@ -184,7 +187,7 @@ class CreateNews extends Component {
         return (
 
             < div className="card" >
-                <div className="card-header">
+                <div className="card-header  modal-dialog-centered">
                     <button type="button"
                         className="btn float-right" onClick={() => { this.props.closeModal() }}><FaTimes /></button>
 
@@ -204,6 +207,7 @@ class CreateNews extends Component {
                                         onChange={e => this.setState({ title: e.target.value })}
                                         value={this.state.title}
                                         className="form-control" name="title"
+                                        maxLength="100"
                                         required></input>
 
                                 </div>
@@ -218,6 +222,7 @@ class CreateNews extends Component {
                                         onChange={e => this.setState({ description: e.target.value })}
                                         value={this.state.description}
                                         className="form-control" name="description"
+                                        maxLength="200"
                                         required></input>
 
                                 </div>
@@ -250,6 +255,7 @@ class CreateNews extends Component {
                                         onChange={e => this.setState({ journalist: e.target.value })}
                                         value={this.state.journalist}
                                         className="form-control" name="journalist"
+                                        maxLength="50"
                                         required></input>
 
                                 </div>
@@ -301,9 +307,7 @@ class CreateNews extends Component {
 
                                 </div>
                             </div>
-
                             <button type="submit" className="btn btn-primary mt-3">{this.props.edit.status ? 'Editar' : 'Crear'}</button>
-
                         </form>
 
                     </div>

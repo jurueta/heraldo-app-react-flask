@@ -7,13 +7,14 @@ function CardPrincipal({ title, info, img, id }) {
             <div className="card text-center">
                 <div className="card-body">
                     <div className="col-12 p-0">
-                        <h4 className="card-title font-weight-bold">
+                        <h2 className="card-title fz-24 font-weight-bold">
                             {title}
-                        </h4>
-                        <p className="card-text text-secondary">
+                        </h2>
+                        <img className="img-fluid rounded" src={img}></img>
+                        <p className="card-text text-secondary mt-2">
                             {info}
                         </p>
-                        <img className="img-fluid rounded" src={img}></img>
+                        
                     </div>
                 </div>
             </div>

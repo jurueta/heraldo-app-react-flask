@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import axios from 'axios'
 import CreateNews from './CreateNews.jsx'
 import './css/styleAdmin.css'
+import Swal from 'sweetalert2'
 
 // configuración para el Modal
 Modal.setAppElement('#root')
@@ -58,25 +59,32 @@ const AdminNews = () => {
 
     //Borrar noticia
     const deleteNotice = async (id) => {
-        const deleteResponse = window.confirm("¿Estás seguro de que desea borrar esta noticia?")
-        if (deleteResponse) {
-            await axios.delete(`${API}/notice/${id}`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem('USER_SESSION')}`,
-                    'Content-Type': 'application/json; charset=utf-8'
+      /*   const deleteResponse = window.confirm("¿Estás seguro de que desea borrar esta noticia?") */
+        Swal.fire({
+            title: 'Deleted',
+            text: '¿Estás seguro de que desea borrar esta noticia?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Borrar',
+            cancelButtonText: 'Cancelar'
+          }).then(async (result) =>  {
+            if (result.isConfirmed) {
+                await axios.delete(`${API}/notice/${id}`, {
+                    headers: {
+                        Authorization: `JWT ${localStorage.getItem('USER_SESSION')}`,
+                        'Content-Type': 'application/json; charset=utf-8'
+                    }
                 }
+                ).then(response => {
+                    if (response.status === 200) {// Si se efectua la petición
+                        setNewsList(newsList.filter(item => // Actualiza la lista de noticias cuando se borra una
+                            item.id !== id
+                        ))
+                    }
+                })
             }
-            ).then(response => {
-                if (response.status === 200) {// Si se efectua la petición
-                    console.log(response.data)
-                    setNewsList(newsList.filter(item => // Actualiza la lista de noticias cuando se borra una
-                        item.id !== id
-                    ))
-                }
-            })
-        }
-    }
-
+        })
+}
 
     // Edita la visibilización de la notica 
     const visibleNoticie = (id, visible) => {
@@ -98,20 +106,21 @@ const AdminNews = () => {
 
         ).then(response => {
             if (response.status === 200) {
-                let indexEdit = newsList.map(item => { return item.id }).indexOf(id)
-                newsList[indexEdit].visible = parametros.visible
+                getNewsList()
             }
         })
-
     }
 
 
-    return (
+   
 
+
+
+    return (
         <IconContext.Provider value={{ style: { margin: '2px 3px 5px' }, size: "1.2em" }}>
             <button type="button"
                 onClick={() => { setOpen(true) }}
-                className="btn btn-outline-success float-left btn-create"><FaPlusCircle />Crear noticia</button>
+                className="btn btn-outline-success float-left btn-create py-3"><FaPlusCircle />Crear noticia</button>
 
             {/* Modal create*/}
             <Modal className="center"
@@ -132,41 +141,53 @@ const AdminNews = () => {
 
 
             <div className="table-responsive news-table">
-                <table className="table">
+                <table className="table white">
                     <thead>
                         <tr className="bg-primary text-center">
-                            <th scope="col" className="col-md-1">Título</th>
-                            <th scope="col" className="col-md-4">Descripción</th>
-                            <th scope="col" className="col-md-5">Resumen</th>
-                            <th scope="col" className="col-md-1">Acciones</th>
+                            <th scope="col">Título</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Resumen</th>
+                            <th scope="col">Editar</th>
+                            <th scope="col">Eliminar</th>
+                            <th scope="col">Invisibilizar</th>
                         </tr>
                     </thead>
                     <tbody>
                         {newsList.map(notice => {
                             return (
                                 <tr key={notice.id}>
-                                    <td> <textarea className="form-control title p-1" rows="4" readOnly value={notice.titulo}></textarea></td>
+                                    <td> <textarea className="form-control p-1" rows="4" readOnly value={notice.titulo}></textarea></td>
                                     <td> <textarea className="form-control p-1" rows="4" readOnly value={notice.descripcion}></textarea> </td>
                                     <td><textarea className="form-control p-1" rows="4" readOnly value={notice.resena}></textarea></td>
                                     <td className="align-middle">
-                                        <div className="row">
-
+                                        <div className="row mx-0 d-flex justify-content-center align-items-center">
                                             <button className="btn btn-primary p-0 pr-1 mb-1" name="edit"
                                                 onClick={() => {
                                                     setEdit({ id: notice.id, status: true });
                                                     setOpen(true)
-                                                }}><FaPenNib /> Editar</button>
+                                                }}><FaPenNib className="fz-30 p-2" /></button>
+                                        </div>
+                                    </td>
+                                    <td className="align-middle">
+                                        <div className="row mx-0 d-flex justify-content-center align-items-center">
                                             <button className="btn btn-danger p-0 pr-1 mb-1" name="delete"
-                                                onClick={() => deleteNotice(notice.id)}><FaTrashAlt /> Eliminar</button>
-                                            {notice.visible ?
-                                                <button className="btn btn-dark p-0 pr-1" name="visible"
-                                                    onClick={() => visibleNoticie(notice.id, notice.visible)}><FaRegEyeSlash /> Invisibilizar</button>
-                                                :
-                                                <button className="btn btn-dark p-0 pr-1" name="visible"
-                                                    onClick={() => visibleNoticie(notice.id, notice.visible)}><FaRegEye /> Visibilizar</button>
-                                            }
+                                                onClick={() => deleteNotice(notice.id)}><FaTrashAlt className="fz-30 p-2"/></button>
                                         </div>
 
+                                    </td>
+                                    <td className="align-middle">
+                                        <div className="row mx-0 d-flex justify-content-center align-items-center">
+                                           
+                                             <button className="btn btn-dark p-0 pr-1" name="visible"
+                                                    onClick={() => visibleNoticie(notice.id, notice.visible)}>
+                                                         {notice.visible === 0 ?
+                                                         <FaRegEyeSlash  className="fz-30 p-2" /> : <FaRegEye className="fz-30 p-2"/>
+                                                         }
+                                                         
+                                                        </button>
+                                           
+                                                    
+                                        </div>
                                     </td>
                                 </tr>)
                         })}

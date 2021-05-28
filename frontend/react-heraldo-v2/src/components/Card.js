@@ -5,38 +5,38 @@ import './css/styleCard.css'
 const cardImg = (title, info, img) => {
     if (img === '') {
         return (
-            <div className="col-12 p-0">
+            <div className="col-12">
                 <h4 className="card-title font-weight-bold">
                     {title}
                 </h4>
-                <p className="card-text text-secondary">
+                <p className="card-text text-secondary mb-3 fz-13">
                     {info}
                 </p>
             </div>
         );
     } else {
         return (
-            <div className="container-flex">
-                <div className="col-7 p-0">
+            <React.Fragment>
+                <div className="col-12">
                     <h4 className="card-title font-weight-bold">
                         {title}
                     </h4>
-                    <p className="card-text text-secondary">
+                    <p className="card-text text-secondary mb-3 fz-18">
                         {info}
                     </p>
                 </div>
-                <img className="col-5 p-0 img-fluid rounded" src={img} alt={''}></img>
-            </div>
+                <img className="w-100 img-fluid rounded" src={img} alt={''}></img>
+            </React.Fragment>
         );
     }
 }
 
 function Card({ title, info, img, id }) {
     return (
-        <a href={`notice/${id}`}>
+        <a href={`notice/${id}`} className="w-100">
             <div className="card text-center">
-                <div className="card-body">
-                    <div className="row">
+                <div className="card-body px-2 pt-4">
+                    <div className="row mx-0">
                         {cardImg(title, info, img)}
                     </div>
                 </div>
