@@ -11,3 +11,164 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.icon-heraldo {
+  width: 100%;
+  max-width: 400px;
+}
+
+.icon-footer {
+  width: 100%;
+  max-width: 200px;
+}
+
+p {
+  margin-bottom: 0 !important;
+}
+
+.fw-bold {
+  font-weight: bold;
+}
+
+/* .bg-gray-lit {
+  background: linear-gradient(to right, #b10000,#c70808 15%,#f70000 85%,#ff0000);
+} */
+
+.bg-gray-lit {
+  background: linear-gradient(to right, #ffffff,#f1f1f1 15%,#f1f1f1 85%,#ffffff);
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.flex-1-0-auto {
+  flex: 1 0 auto !important;
+}
+
+.fz-10 {
+  font-size: 10px;
+}
+.fz-11 {
+  font-size: 11px;
+}
+.fz-12 {
+  font-size: 12px;
+}
+.fz-13 {
+  font-size: 13px;
+}
+.fz-14 {
+  font-size: 14px;
+}
+.fz-15 {
+  font-size: 15px;
+}
+.fz-16 {
+  font-size: 16px;
+}
+.fz-17 {
+  font-size: 17px;
+}
+.fz-18 {
+  font-size: 18px;
+}
+.fz-19 {
+  font-size: 19px;
+}
+.fz-20 {
+  font-size: 20px;
+}
+.fz-21 {
+  font-size: 21px;
+}
+.fz-22 {
+  font-size: 22px;
+}
+.fz-23 {
+  font-size: 23px;
+}
+.fz-24 {
+  font-size: 24px !important;
+}
+.fz-30 {
+  font-size: 30px;
+}
+
+.w-500 {
+  width: 100%;
+  max-width: 500px;
+}
+
+.w-800 {
+  width: 100%;
+  max-width: 800px;
+}
+
+.white {
+  color: #FFFFFF !important;
+}
+
+.border-top-red {
+  border-top: 2px solid #b10012
+}
+
+.br-top-gray {
+  border-top: 1px solid #ddd;
+}
+
+.br-bot-gray {
+  border-bottom: 1px solid #ddd;
+}
+
+.br-left-gray {
+  border-left: 1px solid #ddd;
+}
+.br-right-bot-gray {
+  border-right: 1px solid #ddd;
+}
+
+.w-1400 {
+  width: 100%;
+  max-width: 1400px !important;
+}
+
+.nl-1-4 {
+  line-height: 1.4 !important;
+}
+
+.z-index-9999 {
+  z-index: 9999;
+}
+
+/* #header-heraldo {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  transition: background 0.5s;
+}
+ */
+
+ .center {
+  margin: auto;
+  margin-top: 0 !important;
+  height: auto !important;
+  width: auto !important;
+  max-height: 100% !important;
+  max-width: 800px;
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}

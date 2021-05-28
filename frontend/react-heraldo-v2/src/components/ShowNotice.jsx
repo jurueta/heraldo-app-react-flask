@@ -15,13 +15,12 @@ const ShowNotice = () => {
             .then(response => {
                 if (response.status === 200) {
                     setNoticia(response.data[0])
-                    console.log(noticia)
                 }
             })
     }, [])
 
     return (
-        <div className="container text-center mt-5 mb-5">
+        <div className="container bg-white text-center mt-5 mb-5">
             <div className="card m-auto" style={{ maxWidth: "50rem" }}>
                 <div className="card">
                     <h1 className="font-weight-bold">{noticia.titulo}</h1>
@@ -32,7 +31,7 @@ const ShowNotice = () => {
                 </div>
                 <p className="font-weight-lighter">Hora de la publicación: {noticia.hora}</p>
                 <p className="font-weight-lighter">Autor: {noticia.autor}</p>
-                <h5>{noticia.resena}</h5>
+                <h5 className="text-left nl-1-4">{noticia.resena}</h5>
             </div>
         </div>
     )

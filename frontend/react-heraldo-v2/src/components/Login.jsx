@@ -29,7 +29,6 @@ const Login = () => {
             password: password
         }).then(response => {
             if (response.status === 200) {
-                console.log(response.data.access_token)
                 localStorage.setItem('USER_SESSION', response.data.access_token) // Se crea la sección
                 clearInputs()
                 window.location.href = '/'
@@ -89,7 +88,7 @@ const Login = () => {
                                 </div>
 
                                 {error &&
-                                    <div class="card alert-danger m-0">Usuario o contraseña invalido</div>
+                                    <div className="card alert-danger m-0">Usuario o contraseña invalido</div>
                                 }
 
                                 <button type="submit" className="btn btn-primary mt-3">Ingresar</button>

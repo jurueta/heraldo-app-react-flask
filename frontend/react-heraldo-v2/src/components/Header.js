@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Navbar from './Navbar.js'
 import './css/styleHeader.css';
+import logoHeraldo from '../image/el-heraldo-logo.svg';
+
+
 
 function Header() {
+    
+    const date = new Date().toLocaleString();
+
     return (
         <header>
-            <div className="container text-center pt-5 pb-2">
-                <h1 id="titulo">El Heraldo</h1>
-            </div>
-
+            <div className="container w-1400 text-center py-3 z-index-9999 bg-white nav-heraldo section" id="header-heraldo" >
+                <p className="fw-bold">{date}</p>
+                <img src={logoHeraldo} alt="Heraldo-logo" className="icon-heraldo"/>
             <Navbar />
-
+            </div>
         </header>
-
     );
 }
 export default Header;

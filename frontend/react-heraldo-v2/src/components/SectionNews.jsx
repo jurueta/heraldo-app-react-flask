@@ -39,15 +39,21 @@ class SectionNews extends Component {
 
         return (
             <div className="row">
-                <div className="col-md-3 col-sm-12">
+
+                {(this.state.otros.length == 0 && this.state.politicaSocial.length == 0 && this.state.deportes.length == 0) && 
+                <h2 className="text-center w-100 fw-bold">No hay noticias</h2> }
+                
+                <div className="col-lg-4 col-xl-3">
                     <CardsLateralSection otros={this.state.otros} />
                 </div>
-                <div className="col-md-6 col-sm-12">
+                <div className="col-lg-4 col-xl-6">
                     <CardsMidSection politicaSocial={this.state.politicaSocial} />
                 </div>
-                <div className="col-md-3 col-sm-12">
+                <div className="col-lg-4 col-xl-3">
                     <CardsLateralSection deportes={this.state.deportes} />
                 </div>
+
+
             </div>
         );
     }

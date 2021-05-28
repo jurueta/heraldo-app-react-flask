@@ -9,9 +9,9 @@ function CardsLateralSection(props) {
         <div className="row">
             {
                 noticias.map(card => (
-                    <div key={card.id}>
-                        <Card title={card.titulo} info={card.descripcion} img={card.imagen} id={card.id} />
-                    </div>
+                   
+                        <Card title={card.titulo} info={card.descripcion} img={card.imagen} id={card.id} key={card.id} />
+                    
                 ))
             }
         </div>
