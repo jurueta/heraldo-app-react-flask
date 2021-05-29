@@ -4,3 +4,4 @@ SQLAlchemy==1.4.15
 mysqlclient==1.4.6
 Flask-RESTful==0.3.8
 Flask-Cors==3.0.10
+Pillow==8.0.1

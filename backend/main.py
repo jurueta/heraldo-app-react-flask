@@ -41,5 +41,5 @@ def getImage(img_name):
     return send_from_directory(f"{app.config['IMAGE_FOLDER']}", img_name) 
 
 if __name__ == '__main__':
-    app.run(host='25.1.114.174',port=80, debug=True)
-    # app.run(debug=True)
+    # app.run(host='25.1.114.174',port=80, debug=True)
+    app.run(debug=True)

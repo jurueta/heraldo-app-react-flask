@@ -10,6 +10,14 @@ import ShowNotice from './components/ShowNotice.jsx'
 
 function App() {
 
+  if (!localStorage.getItem("USER_SESSION") && window.location.pathname == '/admin') {
+    window.location.href = "/login";
+  }
+  
+  if (localStorage.getItem("USER_SESSION") && (window.location.pathname == '/login' || window.location.pathname == 'registrarse' )) {
+    window.location.href = "/admin";
+  }
+
   return (
 
     <Router>

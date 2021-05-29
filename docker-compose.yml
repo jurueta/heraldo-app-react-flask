@@ -1,0 +1,40 @@
+version: '3'
+
+services: 
+
+    db:
+        image: mysql:5.6
+        environment:
+            MYSQL_ROOT_PASSWORD: claseFullStack123
+            MYSQL_DATABASE: heraldo
+        ports: 
+            - "3360:3306"
+        networks:
+            - proyectoFull
+
+    frontend:
+        container_name: front-react
+        build: ./frontend/
+        ports: 
+            - "3000:3000"
+        command: npm start
+        volumes: 
+            - ./frontend/:/app/
+        networks:
+            - proyectoFull
+
+    backend:
+        container_name: back-flask
+        build: ./backend/
+        ports: 
+            - "5000:5000"
+        command: python main.py
+        volumes: 
+            - ./backend/:/app/
+        networks:
+            - proyectoFull
+
+networks: 
+    proyectoFull:
+        driver: bridge
+        

@@ -13,7 +13,9 @@ function Header() {
         <header>
             <div className="container w-1400 text-center py-3 z-index-9999 bg-white nav-heraldo section" id="header-heraldo" >
                 <p className="fw-bold">{date}</p>
-                <img src={logoHeraldo} alt="Heraldo-logo" className="icon-heraldo"/>
+                <a href="">
+                    <img src={logoHeraldo} alt="Heraldo-logo" className="icon-heraldo"/>
+                </a>
             <Navbar />
             </div>
         </header>
